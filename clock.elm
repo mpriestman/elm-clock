@@ -61,23 +61,23 @@ hands =
 
 hours : Time -> Fraction
 hours =
-  fraction Date.hour 12
+  timeFraction Date.hour 12
 
 minutes : Time -> Fraction
 minutes =
-  fraction Date.minute 60
+  timeFraction Date.minute 60
 
 seconds : Time -> Fraction
 seconds =
-  fraction Date.second 60
+  timeFraction Date.second 60
 
-fraction : (Date -> Int) -> Int -> Time -> Fraction
-fraction fn max time =
-  fn (Date.fromTime time) |> timeFraction max
+timeFraction : (Date -> Int) -> Int -> Time -> Fraction
+timeFraction fn max time =
+  fn (Date.fromTime time) |> fraction max
 
-timeFraction : Int -> Int -> Fraction
-timeFraction scale value =
-  (toFloat (value % scale)) / (toFloat scale)
+fraction : Int -> Int -> Fraction
+fraction max value =
+  (toFloat (value % max)) / (toFloat max)
 
 handPosition : (Time -> Fraction) -> Length -> Time -> (String, String)
 handPosition fn length time =
